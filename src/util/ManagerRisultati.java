@@ -2,33 +2,33 @@ package util;
 
 import espressioni.OperazioneSemplice;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class ManagerRisultati {
 
     int punteggioUtente;
     int punteggioMassimo;
-    HashMap<Integer, OperazioneSemplice> correzioniRisposte;
+    ArrayList<OperazioneSemplice> correzioniRisposte;
 
     public ManagerRisultati(int pMax) {
 
         punteggioUtente = 0;
         punteggioMassimo = pMax;
-        correzioniRisposte = new HashMap<>();
+        correzioniRisposte = new ArrayList<>();
 
     }
 
-    public void inserisciCorrezione(int numeroRispostaGiusta, OperazioneSemplice operazione) {
+    public void inserisciCorrezione(OperazioneSemplice operazione) {
 
-        correzioniRisposte.put(numeroRispostaGiusta, operazione);
+        correzioniRisposte.add(operazione);
 
     }
 
-    public void stampaCorrezioni(HashMap<Integer, OperazioneSemplice> correzioni) {
+    public void stampaCorrezioni() {
 
-        for(int i = 0; i < correzioni.size(); i++) {
+        for(int i = 0; i < correzioniRisposte.size(); i++) {
 
-            OperazioneSemplice operazione = correzioni.get(i);
+            OperazioneSemplice operazione = correzioniRisposte.get(i);
             System.out.println("\n" + i + 1 + ".La risposta dell'operazione " + operazione + " era " + operazione.risultato());
 
         }
@@ -56,6 +56,12 @@ public class ManagerRisultati {
     public String percentualeRisposteCorrette() {
 
         return (float)(punteggioUtente / punteggioMassimo) * 100 + "%";
+
+    }
+
+    public float voto() {
+
+        return (float)(punteggioUtente * 10) / (float)punteggioMassimo;
 
     }
 
