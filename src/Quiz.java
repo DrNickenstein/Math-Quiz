@@ -16,7 +16,6 @@ public class Quiz {
 
         for(int i = 0; i < 10; i++) {
 
-            System.out.println("Chiamata");
             OperazioneSemplice operazione = managerEspressioni.generaOperazioneSemplice();
             int numeroRispostaGiusta = managerQuesiti.stampaQuesito(operazione) + 1;
 
@@ -28,7 +27,7 @@ public class Quiz {
 
     }
 
-    public void faseRispostaUtente(int numeroRispostaGiusta, OperazioneSemplice operazione, Scanner scanner, int i) {
+    public void faseRispostaUtente(int numeroRispostaGiusta, OperazioneSemplice operazione, Scanner scanner, int numeroQuesito) {
 
         System.out.println("Inserire la propria risposta (1, 2, o 3) entro 60 secondi: ");
 
@@ -36,12 +35,12 @@ public class Quiz {
 
                 if(!input.equals("1") && !input.equals("2") && !input.equals("3")) {
 
-                    if(i == 8) {
+                    if(numeroQuesito == 9) {
 
                         System.out.println("\nRisposta non valida. Attendere il prossimo quesito...");
 
                     }
-                    managerRisultati.inserisciCorrezione(operazione);
+                    managerRisultati.inserisciCorrezione(operazione, numeroQuesito);
                     return;
 
                 }
@@ -50,18 +49,18 @@ public class Quiz {
 
                 if(rispostaUtente != numeroRispostaGiusta) {
 
-                    if(i == 8) {
+                    if(numeroQuesito == 9) {
 
                         System.out.println("\nRisposta errata. Attendere il prossimo quesito...");
 
                     }
-                    managerRisultati.inserisciCorrezione(operazione);
+                    managerRisultati.inserisciCorrezione(operazione, numeroQuesito);
                     return;
 
                 }
 
 
-                if(i == 8) {
+                if(numeroQuesito == 9) {
 
                     System.out.println("\nRisposta corretta! Attendere il prossimo quesito...");
 

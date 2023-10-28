@@ -9,18 +9,20 @@ public class ManagerRisultati {
     int punteggioUtente;
     int punteggioMassimo;
     ArrayList<OperazioneSemplice> correzioniRisposte;
-
+    ArrayList<Integer> numeriRisposteCorrette;
     public ManagerRisultati(int pMax) {
 
         punteggioUtente = 0;
         punteggioMassimo = pMax;
         correzioniRisposte = new ArrayList<>();
+        numeriRisposteCorrette = new ArrayList<>();
 
     }
 
-    public void inserisciCorrezione(OperazioneSemplice operazione) {
+    public void inserisciCorrezione(OperazioneSemplice operazione, int numeroQuesito) {
 
         correzioniRisposte.add(operazione);
+        numeriRisposteCorrette.add(numeroQuesito);
 
     }
 
@@ -29,7 +31,7 @@ public class ManagerRisultati {
         for(int i = 0; i < correzioniRisposte.size(); i++) {
 
             OperazioneSemplice operazione = correzioniRisposte.get(i);
-            System.out.println("\n" + i + 1 + ".La risposta dell'operazione " + operazione + " era " + operazione.risultato());
+            System.out.println(numeriRisposteCorrette.get(i) + ".La risposta dell'operazione " + operazione + " era " + operazione.risultato() + ".");
 
         }
 
