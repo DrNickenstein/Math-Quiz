@@ -16,6 +16,7 @@ public class Quiz {
 
         for(int i = 0; i < 9; i++) {
 
+            System.out.println("Chiamata");
             OperazioneSemplice operazione = managerEspressioni.generaOperazioneSemplice();
             int numeroRispostaGiusta = managerQuesiti.stampaQuesito(operazione) + 1;
 
@@ -30,10 +31,6 @@ public class Quiz {
     public void faseRispostaUtente(int numeroRispostaGiusta, OperazioneSemplice operazione, Scanner scanner) {
 
         System.out.println("Inserire la propria risposta (1, 2, o 3) entro 60 secondi: ");
-        ExecutorService executor = Executors.newSingleThreadExecutor(); //Crea un nuovo Thread
-        Future<String> future = executor.submit(new Callable<String>() { //Assegna il Callable al Thread appena creato
-            @Override
-            public String call() throws Exception { //Funzione in cui eseguiamo il Callable
 
                 String input = scanner.nextLine();
 
@@ -41,7 +38,7 @@ public class Quiz {
 
                     System.out.println("\nRisposta non valida. Attendere il prossimo quesito...");
                     managerRisultati.inserisciCorrezione(operazione);
-                    return "rispostaNonValida"; //Un Callable deve sempre restituire un valore, tuttavia in questo caso non viene utilizzato
+                    return;
 
                 }
 
@@ -51,24 +48,12 @@ public class Quiz {
 
                     System.out.println("\nRisposta errata. Attendere il prossimo quesito...");
                     managerRisultati.inserisciCorrezione(operazione);
-                    return "rispostaErrata";
+                    return;
 
                 }
 
                 System.out.println("\nRisposta corretta! Attendere il prossimo quesito...");
                 managerRisultati.assegnaPunto();
-                return "rispostaCorretta";
-
-            }
-        });
-
-        try{
-            future.get(1, TimeUnit.MINUTES); //Restituisce il valore del Callable entro un tempo limite specificato
-        } catch (TimeoutException | InterruptedException | ExecutionException e){
-            System.out.println("Timeout! Attendere il prossimo quesito...");
-        }
-
-        executor.shutdownNow(); //Termina il Thread creato immediatamente
 
     }
 
