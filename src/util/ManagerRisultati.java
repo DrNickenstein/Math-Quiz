@@ -26,6 +26,7 @@ public class ManagerRisultati {
 
     }
 
+
     public void stampaCorrezioni() {
 
         for(int i = 0; i < correzioniRisposte.size(); i++) {
